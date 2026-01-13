@@ -46,16 +46,12 @@ const Home = () => {
 				Pokedex Nacional (Gen 1 & 2)
 			</Typography>
 
-			{/* GRID SYSTEM DE MUI:
-        container: Es el padre. 'spacing' es el espacio entre tarjetas (2 = 16px).
-      */}
 			<Grid container spacing={3}>
 				{pokemons.map((pokemon) => (
-					// item: Es cada celda.
-					// xs={12}: En movil ocupa todo el ancho (1 tarjeta por fila)
-					// sm={6}: En tablet ocupa la mitad (2 tarjetas por fila)
-					// md={4}: En laptop pequeña ocupa 1/3 (3 tarjetas por fila)
-					// lg={3}: En monitor grande ocupa 1/4 (4 tarjetas por fila)
+					// xs En movil ocupa todo el ancho
+					// sm En tablet ocupa la mitad
+					// md En laptop pequeña
+					// lg En monitor grande
 					<Grid key={pokemon.id} size={{ xs: 12, sm: 6, md: 4, lg: 2 }}>
 						<PokemonCard pokemon={pokemon} />
 					</Grid>

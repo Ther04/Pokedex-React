@@ -4,8 +4,7 @@ import { Box, Container, Typography } from '@mui/material';
 import Home from './pages/Home.tsx';
 import NavBar from './components/NavBar.tsx';
 import Details from './pages/Details.tsx';
-
-const Favorites = () => <Typography variant='h4'>Favoritos</Typography>;
+import Favorites from './pages/Favorites.tsx';
 
 function App() {
 	return (
@@ -14,7 +13,7 @@ function App() {
 			<NavBar />
 			<Routes>
 				<Route path='/' element={<Home />} />
-				<Route path='/favoritos' element={<Favorites />} />
+				<Route path='/favorites' element={<Favorites />} />
 				<Route path='/pokemon/:id' element={<Details />} />
 			</Routes>
 			{/* </Container> */}
