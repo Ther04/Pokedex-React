@@ -22,13 +22,13 @@ export interface IPokemonDetails {
 	base_experience: number;
 	height: number;
 	weight: number;
-	abilites: {
+	abilities: {
+		isHidden: boolean;
+		slot: number;
 		ability: {
 			name: string;
 			url: string;
 		};
-		isHidden: boolean;
-		slot: number;
 	}[];
 	types: {
 		slot: number;
@@ -47,5 +47,10 @@ export interface IPokemonDetails {
 	}[];
 	sprites: {
 		front_default: string;
+		other: {
+			'official-artwork': {
+				front_default: string;
+			};
+		};
 	};
 }
