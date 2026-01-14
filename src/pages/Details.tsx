@@ -21,6 +21,7 @@ import { ArrowBack, Favorite, FavoriteBorder } from '@mui/icons-material';
 import { PokemonNameUpperCase } from '../utils/pokemonUtils';
 import { DataGrid, type GridColDef } from '@mui/x-data-grid';
 import { PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ResponsiveContainer } from 'recharts';
+import { MoveTypeChip } from '../components/MoveTypeChip';
 
 const TYPE_COLORS: Record<string, string> = {
 	fire: '#F44336', // Rojo
@@ -39,7 +40,7 @@ const TYPE_COLORS: Record<string, string> = {
 	flying: '#BDBDBD', // Gris muy claro
 	ice: '#81D4FA', // Azul claro
 	dragon: '#1A237E', // Azul oscuro
-	electric: '#FFEB3B', // Amarillo
+	electric: '#ffbb00', // Amarillo
 	bug: '#33691E', // Verde oscuro
 };
 
@@ -136,10 +137,31 @@ const Details = () => {
 	const rows = PokemonDetail.moves.map((m, index) => ({
 		id: index,
 		name: PokemonNameUpperCase(m.move.name),
+		url: m.move.url,
 	}));
 
+	// --- 3. MODIFICAMOS LAS COLUMNAS ---
 	const columns: GridColDef[] = [
-		{ field: 'name', headerName: 'Nombre del Movimiento', flex: 1, headerAlign: 'center', align: 'center' },
+		{
+			field: 'name',
+			headerName: 'Movimiento',
+			flex: 1,
+			headerAlign: 'center',
+			align: 'center',
+		},
+		{
+			field: 'url',
+			headerName: 'Tipo',
+			flex: 1,
+			headerAlign: 'center',
+			align: 'center',
+			sortable: false,
+			renderCell: (params) => (
+				<Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
+					<MoveTypeChip url={params.value} />
+				</Box>
+			),
+		},
 	];
 
 	return (
