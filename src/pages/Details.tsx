@@ -12,12 +12,14 @@ import {
 	Tab,
 	Tabs,
 	Typography,
+	useMediaQuery,
+	useTheme,
 } from '@mui/material';
 import type { IPokemonDetails } from '../types/pokemon';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useFavorites } from '../context/FavoritesContext';
 import { getPokemonDetails } from '../api/pokeApi';
-import { ArrowBack, Favorite, FavoriteBorder } from '@mui/icons-material';
+import { ArrowBack, CatchingPokemon, Favorite, FavoriteBorder } from '@mui/icons-material';
 import { PokemonNameUpperCase } from '../utils/pokemonUtils';
 import { DataGrid, type GridColDef } from '@mui/x-data-grid';
 import { PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ResponsiveContainer } from 'recharts';
@@ -63,6 +65,9 @@ const Details = () => {
 	const { id } = useParams<{ id: string }>();
 	const navigate = useNavigate();
 	const { addFavorite, removeFavorite, isFavorite } = useFavorites();
+
+	const theme = useTheme();
+	const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
 	const [PokemonDetail, setPokemonDetail] = useState<IPokemonDetails | undefined>(undefined);
 	const [loading, setLoading] = useState<boolean>(true);
@@ -176,7 +181,7 @@ const Details = () => {
 				<Box
 					sx={{
 						background: 'linear-gradient(180deg, rgba(211, 47, 47, 0.2) 0%, rgba(30,30,30,1) 100%)',
-						p: 4,
+						p: { xs: 2, md: 4 },
 						displayy: 'flex',
 						flexDirection: { xs: 'column', md: 'row' },
 						alignItems: 'center',
@@ -184,31 +189,59 @@ const Details = () => {
 					}}
 				>
 					<Box
-						component='img'
-						src={PokemonDetail.sprites.other['official-artwork'].front_default}
-						alt={PokemonDetail.name}
 						sx={{
-							width: 250,
-							height: 250,
-							filter: 'drop-shadow(0 10px 10px rgba(0,0,0,0.5))',
-							animation: 'float 6s ease-in-out infinite',
+							display: 'flex',
+							justifyContent: { xs: 'center', md: 'flex-start' },
+							width: { xs: '100%', md: 'auto' },
 						}}
-					/>
+					>
+						<Box
+							component='img'
+							src={PokemonDetail.sprites.other['official-artwork'].front_default}
+							alt={PokemonDetail.name}
+							sx={{
+								width: { xs: 200, md: 250 },
+								height: { xs: 200, md: 250 },
+								objectFit: 'contain',
+								filter: 'drop-shadow(0 10px 10px rgba(0,0,0,0.5))',
+								animation: 'float 6s ease-in-out infinite',
+								mx: { xs: 'auto', md: 0 },
+							}}
+						/>
+					</Box>
 
 					<Box sx={{ flexGrow: 1, textAlign: { xs: 'center', md: 'left' } }}>
 						<Box
 							sx={{
 								display: 'flex',
 								alignItems: 'center',
-								gap: 2,
+								flexDirection: { xs: 'column', md: 'row' },
+								gap: 1,
 								mb: 1,
 								justifyContent: { xs: 'center', md: 'flex-start' },
 							}}
 						>
-							<Typography variant='h3' sx={{ fontFamily: 'Orbitron', fontWeight: 'bold' }}>
+							<Typography
+								variant='h3'
+								sx={{
+									fontFamily: 'Orbitron',
+									fontWeight: 'bold',
+									fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
+									wordBreak: 'break-word',
+									lineHeight: 1,
+								}}
+							>
 								{PokemonNameUpperCase(PokemonDetail.name)}
 							</Typography>
-							<Typography variant='h4' sx={{ fontFamily: 'Orbitron', color: 'text.secondary', opacity: 0.5 }}>
+							<Typography
+								variant='h4'
+								sx={{
+									fontFamily: 'Orbitron',
+									color: 'text.secondary',
+									opacity: 0.5,
+									fontSize: { xs: '1.5rem', md: '2.125rem' },
+								}}
+							>
 								#{PokemonDetail.id.toString().padStart(3, '0')}
 							</Typography>
 						</Box>
@@ -219,7 +252,6 @@ const Details = () => {
 									key={t.type.name}
 									label={t.type.name.toUpperCase()}
 									sx={{
-										mr: 1,
 										backgroundColor: TYPE_COLORS[t.type.name],
 										color: '#FFF',
 										fontWeight: 'bold',
@@ -232,7 +264,7 @@ const Details = () => {
 						<Button
 							variant={isFav ? 'outlined' : 'contained'}
 							color={isFav ? 'error' : 'primary'}
-							startIcon={isFav ? <Favorite /> : <FavoriteBorder />}
+							startIcon={<CatchingPokemon />}
 							onClick={handleFavoriteClick}
 							sx={{ borderRadius: '20px', fontFamily: 'Orbitron', px: 4 }}
 						>
@@ -245,7 +277,10 @@ const Details = () => {
 					<Tabs
 						value={tabValue}
 						onChange={handleTabChange}
-						centered
+						centered={!isMobile}
+						variant={isMobile ? 'scrollable' : 'standard'}
+						scrollButtons='auto'
+						allowScrollButtonsMobile
 						textColor='primary'
 						indicatorColor='primary'
 						sx={{ borderBottom: '1px solid #333' }}
@@ -380,23 +415,23 @@ const Details = () => {
 									color: '#FFF',
 								},
 								'& ::-webkit-scrollbar': {
-									width: '10px', // Ancho vertical
-									height: '10px', // Alto horizontal
+									width: '10px',
+									height: '10px',
 								},
 								'& ::-webkit-scrollbar-track': {
-									background: '#0a0a0a', // Fondo del carril (casi negro)
+									background: '#0a0a0a',
 									borderRadius: '0px',
 								},
 								'& ::-webkit-scrollbar-thumb': {
-									background: '#333', // Color base del "dedo" (Gris oscuro elegante)
-									borderRadius: '5px', // Bordes redondeados
-									border: '2px solid #0a0a0a', // Borde para dar efecto "flotante"
+									background: '#333',
+									borderRadius: '5px',
+									border: '2px solid #0a0a0a',
 								},
 								'& ::-webkit-scrollbar-thumb:hover': {
-									background: '#D32F2F', // ¡SE PONE ROJO AL PASAR EL MOUSE!
+									background: '#D32F2F',
 								},
 								'& ::-webkit-scrollbar-corner': {
-									background: '#0a0a0a', // La esquina donde se juntan las barras
+									background: '#0a0a0a',
 								},
 							}}
 						></DataGrid>
