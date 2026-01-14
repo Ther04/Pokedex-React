@@ -14,8 +14,8 @@ import {
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useFavorites } from '../context/FavoritesContext';
-import { CatchingPokemon, Favorite, Menu as MenuIcon } from '@mui/icons-material';
-import React, { useState } from 'react';
+import { CatchingPokemon, Menu as MenuIcon } from '@mui/icons-material';
+import { useState } from 'react';
 
 const NavBar = () => {
 	const { favorites } = useFavorites();
