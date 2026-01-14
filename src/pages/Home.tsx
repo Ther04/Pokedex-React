@@ -53,7 +53,7 @@ const Home = () => {
 	const currentPokemon = pokemons.slice(offset, offset + itemsPerPage);
 	const totalPages = Math.ceil(pokemons.length / itemsPerPage);
 
-	const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+	const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
 		setSearchParams({ page: value.toString() });
 		window.scrollTo({ top: 0, behavior: 'smooth' });
 	};
