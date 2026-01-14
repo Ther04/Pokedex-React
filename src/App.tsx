@@ -1,6 +1,5 @@
-import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { Box, Container, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import Home from './pages/Home.tsx';
 import NavBar from './components/NavBar.tsx';
 import Details from './pages/Details.tsx';

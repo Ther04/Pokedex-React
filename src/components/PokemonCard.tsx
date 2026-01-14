@@ -1,21 +1,16 @@
 import type { IPokemonCardData } from '../types/pokemon';
 import { useFavorites } from '../context/FavoritesContext';
 import { CatchingPokemon } from '@mui/icons-material';
-import { Card, CardContent, CardMedia, Typography, IconButton, CardActionArea, Box } from '@mui/material';
-import { Favorite, FavoriteBorder } from '@mui/icons-material';
+import { Card, CardMedia, Typography, IconButton, CardActionArea, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { PokemonNameUpperCase } from '../utils/pokemonUtils';
-import { useState } from 'react';
 
 interface IPokemonCardProps {
 	pokemon: IPokemonCardData;
 }
 
-let ejemplo = true;
-
 export const PokemonCard: React.FC<IPokemonCardProps> = ({ pokemon }) => {
 	const { isFavorite, addFavorite, removeFavorite } = useFavorites();
-	const [ejemplo, setEjemplo] = useState(false);
 
 	const isFav = isFavorite(pokemon.id);
 
@@ -27,13 +22,6 @@ export const PokemonCard: React.FC<IPokemonCardProps> = ({ pokemon }) => {
 		} else {
 			addFavorite(pokemon);
 		}
-	};
-
-	const pruebaClick = (e: React.MouseEvent) => {
-		e.stopPropagation();
-		e.preventDefault();
-		setEjemplo(!ejemplo);
-		console.log('click en la tarjeta');
 	};
 
 	return (
