@@ -1,13 +1,30 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { IPokemonCardData } from '../types/pokemon';
 import { getPokemonList } from '../api/pokeApi';
 import { getPokemonIdFromUrl, getPokemonImageUrl } from '../utils/pokemonUtils';
-import { Box, CircularProgress, Container, Typography, Grid } from '@mui/material';
+import {
+	Box,
+	CircularProgress,
+	Container,
+	Typography,
+	Grid,
+	Stack,
+	Pagination,
+	useTheme,
+	useMediaQuery,
+} from '@mui/material';
 import { PokemonCard } from '../components/PokemonCard';
+import { useSearchParams } from 'react-router-dom';
 
 const Home = () => {
 	const [pokemons, setPokemons] = useState<IPokemonCardData[]>([]);
 	const [loading, setLoading] = useState<boolean>(true);
+	const [searchParams, setSearchParams] = useSearchParams();
+	const page = parseInt(searchParams.get('page') || '1', 10);
+	const itemsPerPage = 18;
+
+	const theme = useTheme();
+	const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
 	useEffect(() => {
 		const fetchPokemon = async () => {
@@ -32,6 +49,15 @@ const Home = () => {
 		fetchPokemon();
 	}, []);
 
+	const offset = (page - 1) * itemsPerPage;
+	const currentPokemon = pokemons.slice(offset, offset + itemsPerPage);
+	const totalPages = Math.ceil(pokemons.length / itemsPerPage);
+
+	const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+		setSearchParams({ page: value.toString() });
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+	};
+
 	if (loading) {
 		return (
 			<Box sx={{ display: 'flex', justifyContent: 'center', mt: 10 }}>
@@ -42,26 +68,57 @@ const Home = () => {
 
 	return (
 		<Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
-			<Typography variant='h4' component='h1' gutterBottom sx={{ fontWeight: 'bold', mb: 3 }}>
+			<Typography variant={isMobile ? 'h6' : 'h4'} component='h1' gutterBottom sx={{ fontWeight: 'bold', mb: 3 }}>
 				Pokedex Nacional (Gen 1 & 2)
 			</Typography>
 
-			<Grid container spacing={3}>
-				{pokemons.map(
-					(pokemon) => {
-						console.log('XD');
-						return (
-							<Grid key={pokemon.id} size={{ xs: 12, sm: 6, md: 4, lg: 2 }}>
-								<PokemonCard pokemon={pokemon} />
-							</Grid>
-						);
-					},
+			<Grid container spacing={1.5}>
+				{currentPokemon.map(
+					(pokemon) => (
+						<Grid key={pokemon.id} size={{ xs: 6, sm: 4, md: 3, lg: 2 }}>
+							<PokemonCard pokemon={pokemon} />
+						</Grid>
+					),
 					// xs En movil ocupa todo el ancho
 					// sm En tablet ocupa la mitad
 					// md En laptop pequeña
 					// lg En monitor grande
 				)}
 			</Grid>
+
+			<Stack spacing={2} sx={{ mt: 5, alignItems: 'center' }}>
+				<Pagination
+					count={totalPages}
+					page={page}
+					onChange={handlePageChange}
+					color='primary'
+					size={isMobile ? 'medium' : 'large'}
+					siblingCount={isMobile ? 0 : 1}
+					boundaryCount={1}
+					showFirstButton={!isMobile}
+					showLastButton={!isMobile}
+					sx={{
+						'& .MuiPaginationItem-root': {
+							color: '#FFF',
+							borderColor: '#333',
+							fontFamily: 'Orbitron',
+							'&:hover': {
+								backgroundColor: 'rgba(211,47,47,0.2)',
+							},
+							'&.Mui-Selected': {
+								backgroundColor: '#D32F2F',
+								color: '#FFF',
+								'&:hover': {
+									backgroundColor: '#B71C1C',
+								},
+							},
+						},
+					}}
+				/>
+				<Typography variant='caption' sx={{ color: 'text.secondary', fontFamily: 'Orbitron' }}>
+					Mostrando {offset + 1} - {Math.min(offset + itemsPerPage, pokemons.length)} de {pokemons.length} Pokémon
+				</Typography>
+			</Stack>
 		</Container>
 	);
 };

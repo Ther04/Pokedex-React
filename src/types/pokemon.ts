@@ -53,4 +53,10 @@ export interface IPokemonDetails {
 			};
 		};
 	};
+	moves: {
+		move: {
+			name: string;
+			url: string;
+		};
+	}[];
 }
