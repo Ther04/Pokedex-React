@@ -1,9 +1,12 @@
 import { CatchingPokemon } from '@mui/icons-material';
-import { Button, Container, Grid, Typography } from '@mui/material';
+import { Button, Container, Grid, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { useFavorites } from '../context/FavoritesContext';
 import { Link } from 'react-router-dom';
 import { PokemonCard } from '../components/PokemonCard';
 const Favorites = () => {
+	const theme = useTheme();
+	const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
 	const { favorites } = useFavorites();
 	if (favorites.length === 0) {
 		return (
@@ -22,7 +25,7 @@ const Favorites = () => {
 
 	return (
 		<Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
-			<Typography variant='h4' component='h1' gutterBottom sx={{ fontWeight: 'bold', mb: 3 }}>
+			<Typography variant={isMobile ? 'h6' : 'h4'} component='h1' gutterBottom sx={{ fontWeight: 'bold', mb: 3 }}>
 				Mis pokemon Favoritos ({favorites.length})
 			</Typography>
 

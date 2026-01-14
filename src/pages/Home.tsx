@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { IPokemonCardData } from '../types/pokemon';
 import { getPokemonList } from '../api/pokeApi';
 import { getPokemonIdFromUrl, getPokemonImageUrl } from '../utils/pokemonUtils';
@@ -73,17 +73,11 @@ const Home = () => {
 			</Typography>
 
 			<Grid container spacing={1.5}>
-				{currentPokemon.map(
-					(pokemon) => (
-						<Grid key={pokemon.id} size={{ xs: 6, sm: 4, md: 3, lg: 2 }}>
-							<PokemonCard pokemon={pokemon} />
-						</Grid>
-					),
-					// xs En movil ocupa todo el ancho
-					// sm En tablet ocupa la mitad
-					// md En laptop pequeña
-					// lg En monitor grande
-				)}
+				{currentPokemon.map((pokemon) => (
+					<Grid key={pokemon.id} size={{ xs: 6, sm: 4, md: 3, lg: 2 }}>
+						<PokemonCard pokemon={pokemon} />
+					</Grid>
+				))}
 			</Grid>
 
 			<Stack spacing={2} sx={{ mt: 5, alignItems: 'center' }}>

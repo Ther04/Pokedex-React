@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Chip, Skeleton } from '@mui/material';
 import axios from 'axios';
 

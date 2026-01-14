@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
 	Box,
 	Button,
 	Chip,
 	CircularProgress,
 	Container,
-	Divider,
 	Grid,
 	LinearProgress,
 	Paper,
@@ -19,7 +18,7 @@ import type { IPokemonDetails } from '../types/pokemon';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useFavorites } from '../context/FavoritesContext';
 import { getPokemonDetails } from '../api/pokeApi';
-import { ArrowBack, CatchingPokemon, Favorite, FavoriteBorder } from '@mui/icons-material';
+import { ArrowBack, CatchingPokemon } from '@mui/icons-material';
 import { PokemonNameUpperCase } from '../utils/pokemonUtils';
 import { DataGrid, type GridColDef } from '@mui/x-data-grid';
 import { PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ResponsiveContainer } from 'recharts';
