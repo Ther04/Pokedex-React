@@ -47,15 +47,20 @@ const Home = () => {
 			</Typography>
 
 			<Grid container spacing={3}>
-				{pokemons.map((pokemon) => (
+				{pokemons.map(
+					(pokemon) => {
+						console.log('XD');
+						return (
+							<Grid key={pokemon.id} size={{ xs: 12, sm: 6, md: 4, lg: 2 }}>
+								<PokemonCard pokemon={pokemon} />
+							</Grid>
+						);
+					},
 					// xs En movil ocupa todo el ancho
 					// sm En tablet ocupa la mitad
 					// md En laptop pequeña
 					// lg En monitor grande
-					<Grid key={pokemon.id} size={{ xs: 12, sm: 6, md: 4, lg: 2 }}>
-						<PokemonCard pokemon={pokemon} />
-					</Grid>
-				))}
+				)}
 			</Grid>
 		</Container>
 	);
