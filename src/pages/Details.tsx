@@ -209,7 +209,7 @@ const Details = () => {
 							</Typography>
 						</Box>
 
-						<Box sx={{ mb: 3, display: 'flex', gap: '5px' }}>
+						<Box sx={{ mb: 3, display: 'flex', gap: '5px', justifyContent: { xs: 'center', md: 'flex-start' } }}>
 							{PokemonDetail.types.map((t) => (
 								<Chip
 									key={t.type.name}
