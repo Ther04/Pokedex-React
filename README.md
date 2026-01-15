@@ -17,13 +17,13 @@ El proyecto sigue una Arquitectura Basada en Componentes, la idea es tener una c
 ### Estructura de Carpetas
 
 * **api:** Se encarga de la gestion de la PokeApi dentro de la web
-* **components** Componentes Reutilizables
-* **pages** Componentes que representan pantallas completas ('home', 'favorites', 'details')
-* **context** Maneja el estado global de la web, Se utiliza FavoriteContext para acceder a la lista de pokemon favoritos desde cual lugar de la web
-* **types** Se definen las interfaces para no tener problemas de tipado
-* **utils** Distintas Utilidades que se usan a lo largo de la web para distintos procesos como tipar los nombres con la primera letra en mayuscula
-* **theme** Configuracion personalizada que se muestra en el tema y en los componentes de MUI
-* **hooks** Se utiliza para almacenar los customHooks realizados para la web
+* **components:** Componentes Reutilizables
+* **pages:** Componentes que representan pantallas completas ('home', 'favorites', 'details')
+* **context:** Maneja el estado global de la web, Se utiliza FavoriteContext para acceder a la lista de pokemon favoritos desde cual lugar de la web
+* **types:** Se definen las interfaces para no tener problemas de tipado
+* **utils:** Distintas Utilidades que se usan a lo largo de la web para distintos procesos como tipar los nombres con la primera letra en mayuscula
+* **theme:** Configuracion personalizada que se muestra en el tema y en los componentes de MUI
+* **hooks:** Se utiliza para almacenar los customHooks realizados para la web
  
 ## Proceso de Instalacion y Ejecucion
 
@@ -41,5 +41,5 @@ npm run dev
 Con este comando se ejecuta el proyecto de manera local
 
 ## Despliegue en Prod
-Puedes Acceder a la pokedex app a traves del sigueiente enlace 
+Puedes Acceder a la pokedex app a traves del siguiente enlace 
 [text](https://pokedex-app-psi-three.vercel.app)
