@@ -23,7 +23,8 @@ El proyecto sigue una Arquitectura Basada en Componentes, la idea es tener una c
 * **types** Se definen las interfaces para no tener problemas de tipado
 * **utils** Distintas Utilidades que se usan a lo largo de la web para distintos procesos como tipar los nombres con la primera letra en mayuscula
 * **theme** Configuracion personalizada que se muestra en el tema y en los componentes de MUI
-
+* **hooks** Se utiliza para almacenar los customHooks realizados para la web
+ 
 ## Proceso de Instalacion y Ejecucion
 
 1. **Instalar Dependencias:** 
@@ -39,3 +40,6 @@ npm run dev
 ```
 Con este comando se ejecuta el proyecto de manera local
 
+## Despliegue en Prod
+Puedes Acceder a la pokedex app a traves del sigueiente enlace 
+[text](https://pokedex-oq38g9gqc-theryan-colmenares-projects.vercel.app)
