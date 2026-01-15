@@ -42,4 +42,4 @@ Con este comando se ejecuta el proyecto de manera local
 
 ## Despliegue en Prod
 Puedes Acceder a la pokedex app a traves del sigueiente enlace 
-[text](https://pokedex-oq38g9gqc-theryan-colmenares-projects.vercel.app)
+[text](https://pokedex-app-psi-three.vercel.app)
