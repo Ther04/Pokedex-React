@@ -1,73 +1,41 @@
-# React + TypeScript + Vite
+# Pokedex App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+El proyecto esta construido con las siguientes herramientas
 
-Currently, two official plugins are available:
+* **Core:** React + TypeScript
+* **BuildTool:** Vite
+* **UI:** Material UI + CSS
+* **Enrutado:** React Router 
+* **Estado Global:** Context + LocalStorage
+* **Peticiones HTTP:** Axios
+* **Graficos y Datos** Recharts y Data Grid 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Arquitectura del Proyecto
 
-## React Compiler
+El proyecto sigue una Arquitectura Basada en Componentes, la idea es tener una clara separacion de las responsabilidades de cada uno de los Archivos o Componentes.
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+### Estructura de Carpetas
 
-## Expanding the ESLint configuration
+* **api:** Se encarga de la gestion de la PokeApi dentro de la web
+* **components** Componentes Reutilizables
+* **pages** Componentes que representan pantallas completas ('home', 'favorites', 'details')
+* **context** Maneja el estado global de la web, Se utiliza FavoriteContext para acceder a la lista de pokemon favoritos desde cual lugar de la web
+* **types** Se definen las interfaces para no tener problemas de tipado
+* **utils** Distintas Utilidades que se usan a lo largo de la web para distintos procesos como tipar los nombres con la primera letra en mayuscula
+* **theme** Configuracion personalizada que se muestra en el tema y en los componentes de MUI
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Proceso de Instalacion y Ejecucion
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. **Instalar Dependencias:** 
+Puedes instalar todas las dependencias del proyecto usando el comando 
+```bash
+npm install
 ```
+*(este comando leera el archivo package.json el cual tiene las dependencias correspondientes del proyecto)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+2. **Ejecutar**
+```bash
+npm run dev
 ```
+Con este comando se ejecuta el proyecto de manera local
+

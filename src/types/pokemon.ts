@@ -60,3 +60,31 @@ export interface IPokemonDetails {
 		};
 	}[];
 }
+
+export type PokemonElementType =
+	| 'normal'
+	| 'fire'
+	| 'water'
+	| 'grass'
+	| 'electric'
+	| 'ice'
+	| 'fighting'
+	| 'poison'
+	| 'ground'
+	| 'flying'
+	| 'psychic'
+	| 'bug'
+	| 'rock'
+	| 'ghost'
+	| 'dragon'
+	| 'steel'
+	| 'dark'
+	| 'fairy';
+
+export interface IPokemonTypeRef {
+	slot: number;
+	type: {
+		name: PokemonElementType;
+		url: string;
+	};
+}

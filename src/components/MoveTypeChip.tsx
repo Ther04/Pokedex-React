@@ -1,56 +1,26 @@
 import { useEffect, useState } from 'react';
 import { Chip, Skeleton } from '@mui/material';
-import axios from 'axios';
-
-const TYPE_COLORS: Record<string, string> = {
-	fire: '#F44336', // Rojo
-	grass: '#4CAF50', // Verde
-	water: '#2196F3', // Azul
-	poison: '#9C27B0', // Morado
-	fairy: '#F8BBD0', // Rosa pálido
-	psychic: '#E91E63', // Rosa fuerte
-	normal: '#9E9E9E', // Gris
-	steel: '#B0BEC5', // Plateado
-	fighting: '#EF6C00', // Naranja oscuro
-	rock: '#795548', // Marrón oscuro
-	ground: '#ff965d', // Marrón claro (Beige oscuro)
-	dark: '#212121', // Gris muy oscuro
-	ghost: '#673AB7', // Morado oscuro
-	flying: '#BDBDBD', // Gris muy claro
-	ice: '#81D4FA', // Azul claro
-	dragon: '#1A237E', // Azul oscuro
-	electric: '#ffbb00', // Amarillo
-	bug: '#33691E', // Verde oscuro
-};
+import { getMoveType } from '../api/pokeApi';
+import { TYPE_COLORS } from '../utils/pokemonUtils';
+import type { PokemonElementType } from '../types/pokemon';
 
 interface MoveTypeChipProps {
 	url: string;
 }
 
 export const MoveTypeChip: React.FC<MoveTypeChipProps> = ({ url }) => {
-	const [type, setType] = useState<string | null>(null);
+	const [type, setType] = useState<PokemonElementType | null>(null);
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		let isMounted = true;
 
 		const fetchMoveType = async () => {
-			const cacheKey = `move_type_${url}`;
-			const cached = sessionStorage.getItem(cacheKey);
-
-			if (cached) {
-				setType(cached);
-				setLoading(false);
-				return;
-			}
-
 			try {
-				const response = await axios.get(url);
-				const typeName = response.data.type.name;
+				const typeName = await getMoveType(url);
 
 				if (isMounted) {
-					setType(typeName);
-					sessionStorage.setItem(cacheKey, typeName);
+					if (typeName) setType(typeName);
 					setLoading(false);
 				}
 			} catch (error) {

@@ -1,11 +1,12 @@
 import { CatchingPokemon } from '@mui/icons-material';
-import { Button, Container, Grid, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Button, Container, Grid, Typography } from '@mui/material';
 import { useFavorites } from '../context/FavoritesContext';
 import { Link } from 'react-router-dom';
 import { PokemonCard } from '../components/PokemonCard';
+import { useIsMobile } from '../hooks/useIsMobile';
+
 const Favorites = () => {
-	const theme = useTheme();
-	const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+	const isMobile = useIsMobile();
 
 	const { favorites } = useFavorites();
 	if (favorites.length === 0) {

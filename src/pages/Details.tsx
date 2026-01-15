@@ -11,10 +11,9 @@ import {
 	Tab,
 	Tabs,
 	Typography,
-	useMediaQuery,
-	useTheme,
 } from '@mui/material';
-import type { IPokemonDetails } from '../types/pokemon';
+import type { IPokemonDetails, PokemonElementType } from '../types/pokemon';
+import { TYPE_COLORS } from '../utils/pokemonUtils';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useFavorites } from '../context/FavoritesContext';
 import { getPokemonDetails } from '../api/pokeApi';
@@ -23,50 +22,16 @@ import { PokemonNameUpperCase } from '../utils/pokemonUtils';
 import { DataGrid, type GridColDef } from '@mui/x-data-grid';
 import { PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ResponsiveContainer } from 'recharts';
 import { MoveTypeChip } from '../components/MoveTypeChip';
-
-const TYPE_COLORS: Record<string, string> = {
-	fire: '#F44336', // Rojo
-	grass: '#4CAF50', // Verde
-	water: '#2196F3', // Azul
-	poison: '#9C27B0', // Morado
-	fairy: '#F8BBD0', // Rosa pálido
-	psychic: '#E91E63', // Rosa fuerte
-	normal: '#9E9E9E', // Gris
-	steel: '#B0BEC5', // Plateado
-	fighting: '#EF6C00', // Naranja oscuro
-	rock: '#795548', // Marrón oscuro
-	ground: '#ff965d', // Marrón claro (Beige oscuro)
-	dark: '#212121', // Gris muy oscuro
-	ghost: '#673AB7', // Morado oscuro
-	flying: '#BDBDBD', // Gris muy claro
-	ice: '#81D4FA', // Azul claro
-	dragon: '#1A237E', // Azul oscuro
-	electric: '#ffbb00', // Amarillo
-	bug: '#33691E', // Verde oscuro
-};
-
-interface tabPanelProps {
-	children?: React.ReactNode;
-	index: number;
-	value: number;
-}
-
-const CustomTabPanel = (props: tabPanelProps) => {
-	const { children, value, index, ...other } = props;
-	return (
-		<div role='tabpanel' hidden={value !== index} {...other}>
-			{value === index && <Box sx={{ p: 3 }}>{children}</Box>}
-		</div>
-	);
-};
+import { CustomTabPanel } from '../components/CustomTabPanel';
+import { useIsMobile } from '../hooks/useIsMobile';
+import { esES } from '@mui/x-data-grid/locales';
 
 const Details = () => {
 	const { id } = useParams<{ id: string }>();
 	const navigate = useNavigate();
 	const { addFavorite, removeFavorite, isFavorite } = useFavorites();
 
-	const theme = useTheme();
-	const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+	const isMobile = useIsMobile();
 
 	const [PokemonDetail, setPokemonDetail] = useState<IPokemonDetails | undefined>(undefined);
 	const [loading, setLoading] = useState<boolean>(true);
@@ -144,7 +109,6 @@ const Details = () => {
 		url: m.move.url,
 	}));
 
-	// --- 3. MODIFICAMOS LAS COLUMNAS ---
 	const columns: GridColDef[] = [
 		{
 			field: 'name',
@@ -245,13 +209,13 @@ const Details = () => {
 							</Typography>
 						</Box>
 
-						<Box sx={{ mb: 3 }}>
+						<Box sx={{ mb: 3, display: 'flex', gap: '5px' }}>
 							{PokemonDetail.types.map((t) => (
 								<Chip
 									key={t.type.name}
 									label={t.type.name.toUpperCase()}
 									sx={{
-										backgroundColor: TYPE_COLORS[t.type.name],
+										backgroundColor: TYPE_COLORS[t.type.name as PokemonElementType],
 										color: '#FFF',
 										fontWeight: 'bold',
 										fontFamily: 'Orbitron',
@@ -390,6 +354,7 @@ const Details = () => {
 							}}
 							pageSizeOptions={[10, 25, 50]}
 							disableRowSelectionOnClick
+							localeText={esES.components.MuiDataGrid.defaultProps.localeText}
 							sx={{
 								border: 'none',
 								color: '#FFF',
